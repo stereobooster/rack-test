@@ -104,6 +104,25 @@ Requests/sec:  10217.50                                                <-- 10k
 Transfer/sec:      0.88MB
 ```
 
+### NodeJS
+
+```
+node -v
+v6.7.0
+
+node server.js
+
+wrk --threads 2 --duration 10 http://localhost:3000/bla
+Running 10s test @ http://localhost:3000/bla
+  2 threads and 10 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency     0.97ms  560.96us  20.44ms   95.97%
+    Req/Sec     5.33k   673.62     6.32k    80.69%
+  107093 requests in 10.10s, 17.36MB read
+Requests/sec:  10603.42                                                <-- 10k
+Transfer/sec:      1.72MB
+```
+
 ### H2O
 
 ```
@@ -125,6 +144,20 @@ Running 10s test @ http://localhost:3000/bla
   181927 requests in 10.10s, 29.49MB read
 Requests/sec:  18013.72                                                <-- 18k
 Transfer/sec:      2.92MB
+
+sudo launchctl limit maxfiles 10000
+
+wrk --threads 4 --duration 10 -c 10000 http://localhost:3000/bla
+Running 10s test @ http://localhost:3000/bla
+  4 threads and 10000 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    13.07ms   26.41ms 783.54ms   99.55%
+    Req/Sec   800.70    482.65     1.95k    70.00%
+  12031 requests in 10.09s, 2.28MB read
+  Socket errors: connect 4644, read 9382, write 0, timeout 13
+  Non-2xx or 3xx responses: 11925
+Requests/sec:   1192.17                                                <--  1k
+Transfer/sec:    231.38KB
 ```
 
 ### Rust
@@ -144,9 +177,22 @@ Running 10s test @ http://localhost:3000/bla
   448644 requests in 10.10s, 69.31MB read
 Requests/sec:  44415.80                                                <-- 44k
 Transfer/sec:      6.86MB
+
+sudo launchctl limit maxfiles 10000
+
+wrk --threads 4 --duration 10 -c 10000 http://localhost:3000/bla
+Running 10s test @ http://localhost:3000/bla
+  4 threads and 10000 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency   165.70us    7.03ms   1.14s    99.99%
+    Req/Sec    34.21k     9.30k   47.03k    89.47%
+  131001 requests in 10.05s, 20.24MB read
+  Socket errors: connect 4606, read 857, write 0, timeout 5
+Requests/sec:  13033.14                                                <-- 13k
+Transfer/sec:      2.01MB
 ```
 
 ## Next
 
-NodeJS? GO? OCaml? Erlang? Nginx + mruby?
+GO? OCaml (BuckleScript)? Erlang? Nginx + mruby?
 
