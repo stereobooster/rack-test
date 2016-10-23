@@ -45,7 +45,9 @@ fn main() {
         bla.to_json()
     });
 
-    server.post("/bla", middleware! { |request, response|
+    server.post("/bla", middleware! { |request, mut response|
+        response.set(MediaType::Json);
+
         let bla = try_with!(response, {
             request.json_as::<BlaRequest>().map_err(|e| (StatusCode::BadRequest, e))
         });
