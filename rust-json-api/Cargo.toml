@@ -1,0 +1,10 @@
+[package]
+name = "rust-json-api"
+version = "0.1.0"
+authors = ["stereobooster <stereobooster@gmail.com>"]
+
+[dependencies.nickel]
+version = "*"
+
+[dependencies]
+rustc-serialize = "*"
