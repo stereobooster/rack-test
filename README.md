@@ -146,6 +146,7 @@ Requests/sec:  18013.72                                                <-- 18k
 Transfer/sec:      2.92MB
 
 sudo launchctl limit maxfiles 10000
+ulimit -S -n 10000
 
 wrk --threads 4 --duration 10 -c 10000 http://localhost:3000/bla
 Running 10s test @ http://localhost:3000/bla
@@ -179,6 +180,7 @@ Requests/sec:  44415.80                                                <-- 44k
 Transfer/sec:      6.86MB
 
 sudo launchctl limit maxfiles 10000
+ulimit -S -n 10000
 
 wrk --threads 4 --duration 10 -c 10000 http://localhost:3000/bla
 Running 10s test @ http://localhost:3000/bla
@@ -192,7 +194,41 @@ Requests/sec:  13033.14                                                <-- 13k
 Transfer/sec:      2.01MB
 ```
 
+### GO
+
+```
+cd go
+go version
+go version go1.6 darwin/amd64
+go build
+./go
+
+wrk --threads 4 --duration 10 http://localhost:3000/bla
+Running 10s test @ http://localhost:3000/bla
+  4 threads and 10 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency   186.98us  378.13us  16.99ms   97.83%
+    Req/Sec    12.28k     1.05k   15.74k    77.97%
+  493568 requests in 10.10s, 60.25MB read
+Requests/sec:  48866.26                                                <-- 48k
+Transfer/sec:      5.97MB
+
+sudo launchctl limit maxfiles 10000
+ulimit -S -n 10000
+
+wrk --threads 4 --duration 10 -c 10000 http://localhost:3000/bla
+Running 10s test @ http://localhost:3000/bla
+  4 threads and 10000 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    13.50ms    6.94ms  92.50ms   79.71%
+    Req/Sec     9.00k     4.67k   25.63k    70.65%
+  166869 requests in 10.08s, 20.37MB read
+  Socket errors: connect 2841, read 1039, write 0, timeout 400
+Requests/sec:  16559.84                                                <-- 16k
+Transfer/sec:      2.02MB
+```
+
 ## Next
 
-GO? OCaml (BuckleScript)? Erlang? Nginx + mruby?
+OCaml (BuckleScript)? Erlang? Nginx + mruby?
 
